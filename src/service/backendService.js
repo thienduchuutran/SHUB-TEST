@@ -35,6 +35,12 @@ const queryFile = (start_time, end_time, totalAmount) => {
         }
     }
 
+    if(start_time > end_time){
+        return {
+            errCode: 4
+        }
+    }
+
     // Getting the newest file in files folder
     const files = fs.readdirSync(UPLOAD_FOLDER);
 

@@ -19,13 +19,16 @@ const queryFile = (req, res) => {
     let result = userServices.queryFile(start_time, end_time, totalAmount)
 
     if(result.errCode === 1){
-        return res.status(400).json({ error: 'Invalid time format. Use HH:mm:ss' });
+        return res.status(400).json({ error: 'Invalid time format. Use hours-minutes-seconds' });
     }
     if(result.errCode === 2){
         return res.status(400).json({ error: 'No file uploaded yet' });
     }
     if(result.errCode === 3){
         return res.status(500).json({ error: 'Error processing file: ' + error.message });
+    }
+    if(result.errCode === 4){
+        return res.status(400).json({ error: 'Start time and end time must be reasonable' });
     }
 
     return res.status(200).json({ total_amount: result.data });
